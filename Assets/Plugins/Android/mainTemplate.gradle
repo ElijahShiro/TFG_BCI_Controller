@@ -1,0 +1,83 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation(name: 'EmotivCortexLib', ext:'aar')
+**DEPS**}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+android {
+    ndkVersion "**NDKVERSION**"
+    ndkPath "**NDKPATH**"
+    namespace "com.unity3d.player"
+
+    compileSdk **APIVERSION**
+    buildToolsVersion '**BUILDTOOLS**'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    defaultConfig {
+        minSdk 24
+        targetSdk **TARGETSDK**
+        ndk {
+            debugSymbolLevel **DEBUGSYMBOLLEVEL**
+            abiFilters **ABIFILTERS**
+        }
+        versionCode **VERSIONCODE**
+        versionName '**VERSIONNAME**'
+        String client_id = "put_your_application_client_id_for_here"
+			if (client_id.isEmpty()) {
+				System.err << "You need to config value for client_id"
+			}
+			else {
+				String value = client_id.md5()
+				manifestPlaceholders = [
+						'customScheme': 'emotiv-' + value,
+						"appAuthRedirectScheme": ""
+				]
+			}
+        consumerProguardFiles 'proguard-unity.txt'**USER_PROGUARD**
+**DEFAULT_CONFIG_SETUP**
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    androidResources {
+        noCompress = **BUILTIN_NOCOMPRESS** + unityStreamingAssets.tokenize(', ')
+        ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~"
+    }
+    packagingOptions {
+        exclude 'META-INF/kotlinx_coroutines_core.version'
+        exclude 'META-INF/androidx.lifecycle_lifecycle-livedata-core.version'
+        exclude 'kotlin/internal/internal.kotlin_builtins'
+        exclude 'META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version'
+        exclude 'META-INF/androidx.appcompat_appcompat.version'
+        exclude 'kotlin/reflect/reflect.kotlin_builtins'
+        exclude 'META-INF/*.version'
+        exclude 'DebugProbesKt.bin'
+        exclude 'kotlin/collections/*.kotlin_builtins'
+        exclude 'kotlin/**/*.kotlin_builtins'
+        exclude 'kotlin/*.kotlin_builtins'
+    }
+    **PACKAGING**
+}
+**IL_CPP_BUILD_SETUP**
+**SOURCE_BUILD_SETUP**
+**EXTERNAL_SOURCES**
