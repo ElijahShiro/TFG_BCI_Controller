@@ -40,7 +40,7 @@ public class GameUIController : MonoBehaviour
     public Text SaveFeedbackText;
     private bool _isPaused;
 
-    private StarterAssetsInputs _mouseInputs;
+    [HideInInspector]public StarterAssetsInputs _mouseInputs;
 
     private void Awake()
     {

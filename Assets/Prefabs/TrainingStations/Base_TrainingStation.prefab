@@ -4825,6 +4825,7 @@ GameObject:
   - component: {fileID: 2345904315046953426}
   - component: {fileID: 2345904315046953427}
   - component: {fileID: 2345904315046953439}
+  - component: {fileID: 5010293139385283991}
   m_Layer: 0
   m_Name: Base_TrainingStation
   m_TagString: Untagged
@@ -4925,10 +4926,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionName: neutral
+  ActionID: 0
   StationCamera: {fileID: 2345904315265837651}
   AuraEffect: {fileID: 1226879550}
   PlayerAnimator: {fileID: 0}
   PlayerTargetPosition: {fileID: 2345904316214194647}
+--- !u!54 &5010293139385283991
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345904315046953428}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2345904315147447054
 GameObject:
   m_ObjectHideFlags: 0
