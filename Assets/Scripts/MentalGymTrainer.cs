@@ -169,7 +169,11 @@ public class MentalGymTrainer : MonoBehaviour
         Debug.Log("Loding scenari: " + l_sceneName);
         SceneManager.LoadScene(l_sceneName);
     }
-
+    public void LoadTestLevel()
+    {
+        Debug.Log("Loading test scenario: Level1");
+        SceneManager.LoadScene("Level1");
+    }
     public void ReturnToMenu() 
     { 
         _eItf.UnLoadProfile();
@@ -227,114 +231,4 @@ public class MentalGymTrainer : MonoBehaviour
         if (_isEmotivUnityItfInitialized)
             _eItf.Stop();
     }
-
-    /*
-    public void UnloadProfile() 
-    {
-        Debug.Log("Profile " + ProfileName.text + " _unloaded_");
-        _eItf.UnLoadProfile();
-    }
-    public void SaveProfile() 
-    {
-        _eItf.SaveProfile(ProfileName.text);
-        Debug.Log("Saved profile: " + ProfileName.text);
-    }
-
-
-    // Inicia el entrenamiento mental
-    public void BeginTraining() 
-    {
-        _eItf.StartMCTraining(ActionNameList.captionText.text);
-        Debug.Log("Begining Training: " + ActionNameList.captionText.text);
-        _TimerTrainer = TimerDuration;
-        _isTraining = true;
-
-
-    }
-
-    public void AcceptTraining() 
-    {
-        Debug.Log("Training: " + ActionNameList.captionText.text + " Accepted");
-        _eItf.AcceptMCTraining();
-
-    }
-
-    public void RejectTraining()
-    {
-        Debug.Log("Training: " + ActionNameList.captionText.text + " Rejected");
-        _eItf.RejectMCTraining();
-
-    }
-
-    public void EraseTraining()
-    {
-        Debug.Log("Training: " + ActionNameList.captionText.text + " Erased");
-        _eItf.EraseMCTraining(ActionNameList.captionText.text);
-
-    }
-
-    void OnApplicationQuit()
-    {
-        if(_isEmotivUnityItfInitialized)
-            _eItf.Stop();    
-    }
-
-
-    void CheckButtonsInteractable() 
-    { 
-        if(CreateSessionBtn != null)
-            CreateSessionBtn.interactable = !_eItf.IsSessionCreated;
-
-        if(QueryHeadsetBtn != null)
-            QueryHeadsetBtn.interactable = _eItf.IsSessionCreated;
-
-        if(LoadProfileBtn != null)
-            LoadProfileBtn.interactable = _eItf.IsSessionCreated && !_isTraining && !_eItf.IsProfileLoaded;
-
-        if(UnloadProfileBtn != null)
-            UnloadProfileBtn.interactable = _eItf.IsSessionCreated && _eItf.IsProfileLoaded && !_isTraining;
-
-        if (SaveProfileBtn != null)
-            SaveProfileBtn.interactable = _eItf.IsSessionCreated && _eItf.IsProfileLoaded && !_isTraining;
-
-        if (StartTrainingBtn != null)
-            StartTrainingBtn.interactable =  _eItf.IsProfileLoaded && !_isTraining;
-        
-        if(AcceptTrainingBtn != null) 
-        {
-            if (testingSimulatedDevice) 
-            {
-                AcceptTrainingBtn.interactable = _eItf.IsMCTrainingSuccess || (_eItf.IsMCTrainingCompleted);
-            }else
-                AcceptTrainingBtn.interactable = _eItf.IsMCTrainingSuccess;
-        }
-         
-        if(RejectTrainingBtn != null)
-            RejectTrainingBtn.interactable = _eItf.IsMCTrainingSuccess ||_eItf.IsMCTrainingCompleted;
-
-        if (EraseTrainingBtn != null)
-            EraseTrainingBtn.interactable = _eItf.IsProfileLoaded && !_isTraining;
-
-    }
-
-
-    void CheckSessionCreated() 
-    {
-        if (!_eItf.IsSessionCreated) 
-        { 
-            _loginPanel.SetActive(true);
-            _enablePanel = true;
-        }
-    }
-
-
-    public void OnPanelButton() 
-    {
-        if (MenuBtn != null) 
-        {
-            _enablePanel = !_enablePanel;
-            _loginPanel.SetActive(_enablePanel);
-        }
-    }
-    */
 }

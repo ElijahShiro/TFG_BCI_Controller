@@ -232,4 +232,10 @@ public class GameUIController : MonoBehaviour
         MentalGymTrainer.Instance.ReturnToMenu();
         Time.timeScale = 1f;
     }
+    public void OnGoToLevel1Click()
+    {
+        MentalGymTrainer.Instance.SaveProfile();
+        Time.timeScale = 1f;
+        MentalGymTrainer.Instance.LoadTestLevel();
+    }
 }
