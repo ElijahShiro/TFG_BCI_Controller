@@ -878,6 +878,26 @@ PrefabInstance:
       propertyPath: ActionName
       value: push
       objectReference: {fileID: 0}
+    - target: {fileID: 2345904315046953439, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: TrainingAction
+      value: Empujar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345904316214194647, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345904316214194647, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345904316214194647, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191e2a19481a2fd43bfb6609cb03a1ca, type: 3}
 --- !u!1 &402203565
@@ -1490,7 +1510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785543327}
   m_LocalRotation: {x: -8.1358587e-10, y: 0.9996392, z: 0.026859676, w: 0.000000030279306}
-  m_LocalPosition: {x: -6.6099997, y: 1.11, z: -0.84400034}
+  m_LocalPosition: {x: 14.98, y: 1.11, z: -0.84400034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3143,6 +3163,11 @@ PrefabInstance:
       propertyPath: ActionName
       value: lift
       objectReference: {fileID: 0}
+    - target: {fileID: 2345904315046953439, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: TrainingAction
+      value: jump
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191e2a19481a2fd43bfb6609cb03a1ca, type: 3}
 --- !u!1 &1536764285
@@ -4063,6 +4088,11 @@ PrefabInstance:
       propertyPath: PlayerAnimator
       value: 
       objectReference: {fileID: 1273903578}
+    - target: {fileID: 2345904315046953439, guid: 191e2a19481a2fd43bfb6609cb03a1ca,
+        type: 3}
+      propertyPath: TrainingAction
+      value: neutral
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191e2a19481a2fd43bfb6609cb03a1ca, type: 3}
 --- !u!1001 &5412772624669227391

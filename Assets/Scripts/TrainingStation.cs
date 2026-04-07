@@ -6,6 +6,7 @@ using StarterAssets;
 public class TrainingStation : MonoBehaviour
 {
     [Header("Configuracion de Entrenamiento")]
+    public string TrainingAction = "";
     public string ActionName = "";
     public int ActionID = 0;
 
@@ -22,6 +23,7 @@ public class TrainingStation : MonoBehaviour
     private CharacterController _characterController;
     private bool _isLocked = false;
 
+    private bool _isPowerAnimPlaying = false;
 
     [Header("Position in Station")]
     public Transform PlayerTargetPosition;
@@ -54,16 +56,18 @@ public class TrainingStation : MonoBehaviour
 
             if (_isActive) return;
 
+            int totalSessions = MentalGymTrainer.Instance.GetTrainingCount(ActionName);
             _characterController = other.GetComponent<CharacterController>();
             if (ActionName.Trim().ToLower() != "neutral" && !MentalGymTrainer.Instance.HasTrainedNeutral())
             {
                 _isLocked = true;
-                GameUIController.Instance.ToggleInteractPrompt(true, "BLOQUEADO: Entrena la estación 'NEUTRAL' primero", true);
+                GameUIController.Instance.ToggleInteractPrompt(true, "BLOQUEADO: Entrena 'NEUTRAL' primero", 0, true);
             }
-            else 
+            else
             {
                 _isLocked = false;
-                GameUIController.Instance.ToggleInteractPrompt(true, $"Pulsa E para entrenar {ActionName.ToUpper()}");
+                // Pasamos el nombre de la acción y el número de sesiones
+                GameUIController.Instance.ToggleInteractPrompt(true, $"Pulsa E para entrenar {TrainingAction.ToUpper()}", totalSessions);
             }
                 
         }
@@ -77,6 +81,7 @@ public class TrainingStation : MonoBehaviour
             if (!_isActive && GameUIController.Instance != null)
                 GameUIController.Instance.ToggleInteractPrompt(false);
         }
+
     }
 
     void Update()
@@ -84,6 +89,31 @@ public class TrainingStation : MonoBehaviour
         if (_playerInside && !_isActive && !_isLocked && Keyboard.current.eKey.wasPressedThisFrame)
         {
             OpenTrainingStation();
+        }
+
+        if (_isActive && MentalGymTrainer.Instance._isTraining)
+        {
+
+            float currentPower = MentalGymTrainer.Instance.GetCurrentPower();
+
+            if (PlayerAnimator != null)
+            {
+
+                if (currentPower >= 0.5f && !_isPowerAnimPlaying)
+                {
+
+                    PlayerAnimator.SetBool("IsChanneling", true);
+                    PlayerAnimator.SetInteger("AnimID", ActionID);
+                    _isPowerAnimPlaying = true;
+                }
+
+                else if (currentPower < 0.3f && _isPowerAnimPlaying)
+                {
+
+                    PlayerAnimator.SetBool("IsChanneling", false);
+                    _isPowerAnimPlaying = false;
+                }
+            }
         }
     }
 
@@ -116,8 +146,7 @@ public class TrainingStation : MonoBehaviour
 
         if (PlayerAnimator)
         {
-            PlayerAnimator.SetBool("IsChanneling", true);
-            PlayerAnimator.SetInteger("ActionID", ActionID);
+            PlayerAnimator.SetInteger("AnimID", ActionID);
         }
         if (AuraEffect)
         {
@@ -134,7 +163,7 @@ public class TrainingStation : MonoBehaviour
         if (!isTraining) 
         {
             if (PlayerAnimator) PlayerAnimator.SetBool("IsChanneling", false);
-
+            _isPowerAnimPlaying = false;
             if (result == "SUCCESS")
             {
                 var main = AuraEffect.main;

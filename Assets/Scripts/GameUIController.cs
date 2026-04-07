@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -68,8 +69,7 @@ public class GameUIController : MonoBehaviour
         if(MentalGymTrainer.Instance._isTraining && TimerText != null)
             TimerText.text = MentalGymTrainer.Instance._TimerTrainer.ToString("F1");
 
-        AcceptBtn.interactable = MentalGymTrainer.Instance.CanAcceptResult();
-        RejectBtn.interactable = true;
+        
         SaveBtn.interactable = MentalGymTrainer.Instance.CanSaveResult();
 
 
@@ -108,12 +108,13 @@ public class GameUIController : MonoBehaviour
         TogglePauseMenu(); 
     }
 
-    public void ToggleInteractPrompt(bool show, string message = "", bool isLocked = false)
+    public void ToggleInteractPrompt(bool show, string message = "",int sessions = 0, bool isLocked = false)
     {
         if (InteractPromptObj) InteractPromptObj.SetActive(show);
         if (show && InteractText)
         {
-            InteractText.text = message;
+            string sessionText = sessions > 0 ? $"\n<size=14>(Sesiones completadas: {sessions})</size>" : "";
+            InteractText.text = message + sessionText;
             InteractText.color = isLocked? Color.red : Color.white;
         }
     }
@@ -161,7 +162,10 @@ public class GameUIController : MonoBehaviour
             StatusText.text = message;
             StatusText.color = Color.white;
 
-            if(ScoreSlider) ScoreSlider.gameObject.SetActive(false);
+            AcceptBtn.interactable = false;
+            RejectBtn.interactable = false;
+
+            if (ScoreSlider) ScoreSlider.gameObject.SetActive(false);
             if (QualityText) QualityText.text = "";
         }
         else 
@@ -170,6 +174,10 @@ public class GameUIController : MonoBehaviour
             {
                 StatusText.text = "¡ÉXITO!";
                 StatusText.color = Color.green;
+
+                AcceptBtn.interactable = true;
+                RejectBtn.interactable = true;
+
                 if (ScoreSlider != null)
                 {
                     ScoreSlider.gameObject.SetActive(true);
@@ -199,6 +207,9 @@ public class GameUIController : MonoBehaviour
             {
                 StatusText.text = "FALLO";
                 StatusText.color = Color.red;
+
+                AcceptBtn.interactable = false;
+                RejectBtn.interactable = true;
 
                 if (ScoreSlider) ScoreSlider.gameObject.SetActive(false);
                 if (QualityText) QualityText.text = "Demasiado ruido. Inténtalo de nuevo.";

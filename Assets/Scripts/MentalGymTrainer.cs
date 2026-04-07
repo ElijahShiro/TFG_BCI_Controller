@@ -26,7 +26,8 @@ public class MentalGymTrainer : MonoBehaviour
     public float _TimerTrainer = 0;
     const float TimerDuration = 8f;
     [HideInInspector]public bool _isTraining = false;
-    
+    private string _currentTrainingAction = "";
+
     private string _lastMsg = "";
 
     public delegate void TrainingStateChange(bool isTraining, string resultMessage, float score);
@@ -101,6 +102,13 @@ public class MentalGymTrainer : MonoBehaviour
                 }
 
                 l_finalScore = Mathf.Clamp01(l_finalScore * 1.5f);
+
+                int numberTrainings = _eItf.GetTrainingTimeForAction(_currentTrainingAction);
+                if (_currentTrainingAction == "neutral" || numberTrainings == 0)
+                {
+                    l_finalScore = 1f;
+                    Debug.Log($"Pase VIP aplicado. Acción: {_currentTrainingAction} | Veces previas: {numberTrainings}");
+                }
                 Debug.Log("Result: <color=green>¡ÉXITO!</color> Pulsa 'AcceptTraining' para guardar.");
 
                 OnTrainingUpdate?.Invoke(false, "SUCCESS", l_finalScore);
@@ -114,6 +122,7 @@ public class MentalGymTrainer : MonoBehaviour
             else if (currentMsg.Contains("MC_Completed"))
             {
                 Debug.Log("Sistema: Patrón aprendido y guardado en memoria.");
+                SaveProfile();
             }
         }
     }
@@ -184,6 +193,7 @@ public class MentalGymTrainer : MonoBehaviour
     public void StartTrainingAction(string action) 
     { 
         action = action.ToLower().Trim();
+        _currentTrainingAction = action;
         Debug.Log("Iniciando entrenamiento: " + action);
         _eItf.StartMCTraining(action);
 
@@ -200,6 +210,7 @@ public class MentalGymTrainer : MonoBehaviour
     {
         Debug.Log("Training Accepted");
         _eItf.AcceptMCTraining();
+
         OnResetGameplay?.Invoke();
     }
 
@@ -219,6 +230,17 @@ public class MentalGymTrainer : MonoBehaviour
     public bool CanAcceptResult() {  return _eItf.IsMCTrainingSuccess;}
     public bool CanSaveResult() { return _eItf.IsProfileLoaded && !_isTraining; }
 
+    public int GetTrainingCount(string actionName)
+    {
+        if (!_eItf.IsProfileLoaded) return 0;
+
+        return _eItf.GetTrainingTimeForAction(actionName.ToLower().Trim());
+    }
+    public float GetCurrentPower()
+    {
+        if (!_isTraining || !_eItf.IsProfileLoaded) return 0f;
+        return (float)_eItf.LatestMentalCommand.pow;
+    }
     public bool HasTrainedNeutral() 
     {
         if (!_eItf.IsProfileLoaded) return false;
