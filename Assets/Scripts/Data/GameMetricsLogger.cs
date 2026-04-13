@@ -61,6 +61,12 @@ public class GameMetricsLogger : MonoBehaviour
             participantID = "Tester_" + UnityEngine.Random.Range(1000, 9999);
         }
 
+        if (GameModeManager.Instance != null)
+        {
+            currentControlMode = GameModeManager.Instance.currentMode.ToString();
+            Debug.Log("Telemetría: Modo de control detectado -> " + currentControlMode);
+        }
+
         totalTimeElapsed = 0f;
         totalIdleTime = 0f;
         totalFalls = 0;
