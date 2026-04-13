@@ -17,7 +17,7 @@ public class MentalGymTrainer : MonoBehaviour
     public static MentalGymTrainer Instance { get; private set; }
 
     private bool _isEmotivUnityItfInitialized = false;  // flag para ver si EmotivUnityItf esta iniciado y conectando con Cortex
-    EmotivUnityItf _eItf = EmotivUnityItf.Instance; //accede a todas las funciones de la API
+    [HideInInspector]public EmotivUnityItf _eItf = EmotivUnityItf.Instance; //accede a todas las funciones de la API
 
     public string _currentProfileName { get; private set; }
     public string _currentGenre { get; private set; }

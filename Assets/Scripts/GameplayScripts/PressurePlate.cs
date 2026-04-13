@@ -33,7 +33,7 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        DummyBCIObject box = other.GetComponent<DummyBCIObject>();
+        BCIInteractable box = other.GetComponent<BCIInteractable>();
 
 
         bool isPlayer = other.CompareTag("Player");

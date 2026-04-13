@@ -15,8 +15,7 @@ public class BCISmartTargeting : MonoBehaviour
     {
         FindBestTarget();
 
-        // Aquí iría tu lógica de BCI
-        // if (BCIManager.Instance.CommandIs("Push") && currentTarget != null) { ... }
+
     }
 
     private void FindBestTarget()

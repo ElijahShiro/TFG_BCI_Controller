@@ -10763,7 +10763,9 @@ GameObject:
   - component: {fileID: 3668739513380038726}
   - component: {fileID: 4827091957281314979}
   - component: {fileID: 3668739513380038720}
-  - component: {fileID: 3668739513380038723}
+  - component: {fileID: 481409034346840098}
+  - component: {fileID: 3097925761866626529}
+  - component: {fileID: 4581056788823004696}
   m_Layer: 13
   m_Name: Drag_Box
   m_TagString: Untagged
@@ -10867,7 +10869,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &3668739513380038723
+--- !u!114 &481409034346840098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10876,13 +10878,98 @@ MonoBehaviour:
   m_GameObject: {fileID: 3668739513380038722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce5d5316d119914da175a9895ff8d41, type: 3}
+  m_Script: {fileID: 11500000, guid: 62dc63e55a4b3d9408fc1faeec9a584a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCommand: push
+  activationThreshold: 0.5
+  OnFocusEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3097925761866626529}
+        m_TargetAssemblyTypeName: BCIGrabbableBox, Assembly-CSharp
+        m_MethodName: SetHighlightOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnFocusExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3097925761866626529}
+        m_TargetAssemblyTypeName: BCIGrabbableBox, Assembly-CSharp
+        m_MethodName: SetHighlightOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMentalActivationStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3097925761866626529}
+        m_TargetAssemblyTypeName: BCIGrabbableBox, Assembly-CSharp
+        m_MethodName: Grab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMentalActivationEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3097925761866626529}
+        m_TargetAssemblyTypeName: BCIGrabbableBox, Assembly-CSharp
+        m_MethodName: Release
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3097925761866626529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3668739513380038722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58c7c71d09fbf447b4532619430359c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 0, g: 1, b: 1, a: 1}
   followSpeed: 15
   draggingDrag: 5
-  isGrabbed: 0
+--- !u!114 &4581056788823004696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3668739513380038722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812b6640c9921bf478a00f631b2dcec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3668739513417814611
 GameObject:
   m_ObjectHideFlags: 0
