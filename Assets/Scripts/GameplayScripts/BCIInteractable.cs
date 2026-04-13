@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class BCIInteractable : MonoBehaviour
 {
     [Header("Configuración BCI")]
-    [Tooltip("El comando que activa este objeto (ej: push, pull, lift)")]
+    [Tooltip("El comando que activa este objeto ")]
     public string targetCommand = "push";
     [Tooltip("Poder mental necesario para activarlo (0.0 a 1.0)")]
     public float activationThreshold = 0.5f;
@@ -47,7 +47,6 @@ public class BCIInteractable : MonoBehaviour
             if (!_isActivated)
             {
                 _isActivated = true;
-                if (GameMetricsLogger.Instance != null) GameMetricsLogger.Instance.LogMentalActivationStart();
                 OnMentalActivationStart?.Invoke();
             }
         }

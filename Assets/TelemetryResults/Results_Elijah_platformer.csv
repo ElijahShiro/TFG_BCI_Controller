@@ -1,0 +1,3 @@
+ParticipantID,ControlMode,TotalTime(s),IdleTime(s),Falls,PushCount,JumpCount,UnstableFlickers,TotalConcentration(s),MaxContinuousTime(s),Date
+Elijah_platformer,Full_BCI,133,32,32,18,3,9,29,30,24,11,5,34,13/04/2026 18:26
+Elijah_platformer,Full_BCI,107,69,17,15,4,6,24,24,19,9,5,6,13/04/2026 19:10

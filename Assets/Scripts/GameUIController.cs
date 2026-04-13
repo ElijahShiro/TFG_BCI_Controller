@@ -12,7 +12,7 @@ public class GameUIController : MonoBehaviour
     
     
     [Header("UI Interation")]
-    public GameObject InteractPromptObj; // Objeto que contiene el texto de "Pulsa E"
+    public GameObject InteractPromptObj; 
     public Text InteractText;
     
 

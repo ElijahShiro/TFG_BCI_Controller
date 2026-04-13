@@ -19,10 +19,11 @@ public class BCITargetScanner : MonoBehaviour
     [Header("Animaciones del Jugador")]
     public Animator playerAnimator;
 
-
     private bool isChanneling = false;
-
     private BCIInteractable _currentTarget;
+
+
+    private bool _wasMentalCommandActiveLastFrame = false;
 
     void Start()
     {
@@ -61,12 +62,11 @@ public class BCITargetScanner : MonoBehaviour
             }
         }
 
-
         if (_currentTarget != bestTarget)
         {
             if (_currentTarget != null) _currentTarget.SetFocus(false);
             _currentTarget = bestTarget;
-            if (_currentTarget != null) _currentTarget.SetFocus(true);  
+            if (_currentTarget != null) _currentTarget.SetFocus(true);
         }
     }
 
@@ -74,6 +74,7 @@ public class BCITargetScanner : MonoBehaviour
     {
         string currentAction = "";
         float currentPower = 0f;
+
 
         if (EmotivUnityItf.Instance != null && EmotivUnityItf.Instance.IsProfileLoaded && EmotivUnityItf.Instance.LatestMentalCommand != null)
         {
@@ -86,16 +87,31 @@ public class BCITargetScanner : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) { currentAction = "jump"; currentPower = 1f; }
 
 
+        bool isMentalCommandActive = currentPower >= 0.5f && (currentAction == "push" || currentAction == "pull" || currentAction == "jump");
+
+
+        if (isMentalCommandActive && !_wasMentalCommandActiveLastFrame)
+        {
+            if (GameMetricsLogger.Instance != null)
+                GameMetricsLogger.Instance.StartMentalActivation(currentAction);
+        }
+        else if (!isMentalCommandActive && _wasMentalCommandActiveLastFrame)
+        {
+            if (GameMetricsLogger.Instance != null)
+                GameMetricsLogger.Instance.StopMentalActivation();
+        }
+
+
+        _wasMentalCommandActiveLastFrame = isMentalCommandActive;
+
+
+
         if (currentAction == "jump" && currentPower >= 0.5f)
         {
             if (playerInputs != null)
             {
                 playerInputs.jump = true;
             }
-        }
-        else
-        {
-
         }
 
         isChanneling = false;
@@ -104,11 +120,12 @@ public class BCITargetScanner : MonoBehaviour
         {
             _currentTarget.ReceiveMentalData(currentAction, currentPower);
 
-            if (currentPower >= 0.5f && playerInputs != null)
+            if (currentPower >= 0.5f && (currentAction == "push" || currentAction == "pull") && playerInputs != null)
             {
                 isChanneling = true;
 
                 if (playerController != null) playerController.lockRotation = true;
+
                 if (currentAction == "push")
                 {
                     playerInputs.move = new Vector2(playerInputs.move.x, Mathf.Clamp(playerInputs.move.y, 0f, 1f));
@@ -119,7 +136,6 @@ public class BCITargetScanner : MonoBehaviour
                 }
             }
         }
-
         if (!isChanneling && playerController != null)
         {
             playerController.lockRotation = false;
@@ -134,7 +150,6 @@ public class BCITargetScanner : MonoBehaviour
 
     void LateUpdate()
     {
-
         if (isChanneling && _currentTarget != null)
         {
             Vector3 directionToBox = _currentTarget.transform.position - transform.position;
@@ -147,9 +162,10 @@ public class BCITargetScanner : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = new Color(0, 1, 0, 0.2f);
-            Gizmos.DrawSphere(transform.position, detectionRadius);
-        }
+    {
+        Gizmos.color = new Color(0, 1, 0, 0.2f);
+        Gizmos.DrawSphere(transform.position, detectionRadius);
+    }
 }
