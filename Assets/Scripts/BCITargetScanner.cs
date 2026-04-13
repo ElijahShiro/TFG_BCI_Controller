@@ -76,15 +76,32 @@ public class BCITargetScanner : MonoBehaviour
         float currentPower = 0f;
 
 
-        if (EmotivUnityItf.Instance != null && EmotivUnityItf.Instance.IsProfileLoaded && EmotivUnityItf.Instance.LatestMentalCommand != null)
+        GameModeManager.ControlMode mode  = GameModeManager.Instance != null ? GameModeManager.Instance.currentMode : GameModeManager.ControlMode.Hibrido;
+
+        if (mode == GameModeManager.ControlMode.Teclado)
         {
-            currentAction = EmotivUnityItf.Instance.LatestMentalCommand.act.ToLower();
-            currentPower = (float)EmotivUnityItf.Instance.LatestMentalCommand.pow;
+            if (Input.GetKey(KeyCode.E)) { currentAction = "push"; currentPower = 1f; }
+            if (Input.GetKey(KeyCode.Space)) { currentAction = "jump"; currentPower = 1f; }
+        }
+        else
+        {
+            if (EmotivUnityItf.Instance != null && EmotivUnityItf.Instance.IsProfileLoaded && EmotivUnityItf.Instance.LatestMentalCommand != null)
+            {
+                currentAction = EmotivUnityItf.Instance.LatestMentalCommand.act.ToLower();
+                currentPower = (float)EmotivUnityItf.Instance.LatestMentalCommand.pow;
+            }
+            if (Application.isEditor)
+            {
+                if (Input.GetKey(KeyCode.E)) { currentAction = "push"; currentPower = 1f; }
+                if (Input.GetKey(KeyCode.Space)) { currentAction = "jump"; currentPower = 1f; }
+            }
         }
 
+        if (mode == GameModeManager.ControlMode.Full_BCI && playerInputs != null) 
+        { 
+            playerInputs.move = Vector2.zero;
+        }
 
-        if (Input.GetKey(KeyCode.E)) { currentAction = "push"; currentPower = 1f; }
-        if (Input.GetKey(KeyCode.Space)) { currentAction = "jump"; currentPower = 1f; }
 
 
         bool isMentalCommandActive = currentPower >= 0.5f && (currentAction == "push" || currentAction == "pull" || currentAction == "jump");
