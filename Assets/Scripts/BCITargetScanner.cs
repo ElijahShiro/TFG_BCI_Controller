@@ -23,8 +23,14 @@ public class BCITargetScanner : MonoBehaviour
     private BCIInteractable _currentTarget;
 
 
-    private bool _wasMentalCommandActiveLastFrame = false;
+    [Header("Giroscopio (Full BCI Mode)")]
+    [Tooltip("Grados de inclinación necesarios para empezar a caminar")]
+    public float gyroDeadzone = 5f;
+    [Tooltip("Multiplicador de velocidad de inclinación")]
+    public float gyroSensitivity = 0.1f;
 
+    private bool _wasMentalCommandActiveLastFrame = false;
+    private Vector2 _lastHeadJoystick = Vector2.zero;
     void Start()
     {
         if (originTransform == null) originTransform = transform;
@@ -90,17 +96,43 @@ public class BCITargetScanner : MonoBehaviour
                 currentAction = EmotivUnityItf.Instance.LatestMentalCommand.act.ToLower();
                 currentPower = (float)EmotivUnityItf.Instance.LatestMentalCommand.pow;
             }
-            if (Application.isEditor)
+            if (mode == GameModeManager.ControlMode.Full_BCI && playerInputs != null)
             {
-                if (Input.GetKey(KeyCode.E)) { currentAction = "push"; currentPower = 1f; }
-                if (Input.GetKey(KeyCode.Space)) { currentAction = "jump"; currentPower = 1f; }
+                Vector2 headJoystick = Vector2.zero;
+
+                if (EmotivUnityItf.Instance.GetNumberMotionSamples() > 0)
+                {
+                    double[] accZData = EmotivUnityItf.Instance.GetMotionData(Channel_t.CHAN_ACCZ);
+                    double[] accYData = EmotivUnityItf.Instance.GetMotionData(Channel_t.CHAN_ACCY);
+                    if(accZData != null && accZData.Length > 0 && accYData != null && accYData.Length > 0)
+                    {
+                        float headPitch = (float)accYData[accYData.Length - 1];
+                        float headRoll = (float)accZData[accZData.Length - 1];
+
+                        Debug.Log($"Acelerómetro -> Pitch(X): {headPitch} | Roll(Y): {headRoll}");
+                      
+                        if (Mathf.Abs(headPitch) > gyroDeadzone) 
+                        {
+                            headJoystick.y = Mathf.Clamp(-headPitch * gyroSensitivity, -1f, 1f);
+                        }
+
+                        if (Mathf.Abs(headRoll) > gyroDeadzone) 
+                        { 
+                            headJoystick.x = Mathf.Clamp(headRoll * gyroSensitivity, -1f, 1f);
+                        }
+                        _lastHeadJoystick = headJoystick;
+                    }
+                }
+                playerInputs.move = _lastHeadJoystick;
+            }
+            else if (playerInputs != null)
+            {
+                UnityEngine.InputSystem.PlayerInput pi = playerInputs.GetComponent<UnityEngine.InputSystem.PlayerInput>();
+                if (pi != null && pi.actions != null) pi.actions.FindAction("Move").Enable();
             }
         }
 
-        if (mode == GameModeManager.ControlMode.Full_BCI && playerInputs != null) 
-        { 
-            playerInputs.move = Vector2.zero;
-        }
+
 
 
 

@@ -59,7 +59,7 @@ public class MentalGymTrainer : MonoBehaviour
 
     void Start()
     {
-        _eItf.Init(AppConfig.ClientId, AppConfig.ClientSecret, AppConfig.AppName, AppConfig.AllowSaveLogToFile, AppConfig.IsDataBufferUsing, AppConfig.AppUrl);
+        _eItf.Init(AppConfig.ClientId, AppConfig.ClientSecret, AppConfig.AppName, AppConfig.AllowSaveLogToFile, true, AppConfig.AppUrl);
         _eItf.Start();
         _isEmotivUnityItfInitialized = true;
 
@@ -163,7 +163,7 @@ public class MentalGymTrainer : MonoBehaviour
         string baseName = l_name.Trim();
         _currentProfileName = baseName + "_"+ l_genre;
         _eItf.LoadProfile(_currentProfileName);   
-        _eItf.SubscribeData(new List<string> { "com", "sys" });
+        _eItf.SubscribeData(new List<string> { "com", "sys", "mot" });
 
         Debug.Log("Loaded profile: " + _currentProfileName);
     }

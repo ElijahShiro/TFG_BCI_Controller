@@ -1023,7 +1023,7 @@ namespace EmotivUnityPlugin
             }
             _messageLog = dataText;
             // print out data to console
-            UnityEngine.Debug.Log(dataText);
+           // UnityEngine.Debug.Log(dataText);
         }
 
         private void OnEEGDataReceived(object sender, ArrayList e)
