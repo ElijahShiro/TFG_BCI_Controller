@@ -28,8 +28,12 @@ public class TrainingStation : MonoBehaviour
     [Header("Position in Station")]
     public Transform PlayerTargetPosition;
 
+    public bool IsStationEnabled = true;
+    public Material disabledMat;
     void Start()
     {
+        if (!IsStationEnabled) 
+            GetComponent<Renderer>().material = disabledMat;
         if (StationCamera) StationCamera.Priority = 0;
         if (AuraEffect) AuraEffect.Stop();
 
@@ -47,6 +51,9 @@ public class TrainingStation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!IsStationEnabled) 
+            return; 
+        
         if (other.CompareTag("Player")) 
         {
             _playerInside = true;
@@ -66,7 +73,6 @@ public class TrainingStation : MonoBehaviour
             else
             {
                 _isLocked = false;
-                // Pasamos el nombre de la acción y el número de sesiones
                 GameUIController.Instance.ToggleInteractPrompt(true, $"Pulsa E para entrenar {TrainingAction.ToUpper()}", totalSessions);
             }
                 
@@ -99,14 +105,19 @@ public class TrainingStation : MonoBehaviour
             if (PlayerAnimator != null)
             {
 
-                if (currentPower >= 0.5f && !_isPowerAnimPlaying)
+                if (currentPower >= 0.5f )
                 {
-
-                    PlayerAnimator.SetBool("IsChanneling", true);
-                    PlayerAnimator.SetInteger("AnimID", ActionID);
-                    _isPowerAnimPlaying = true;
+                    if (!_isPowerAnimPlaying)
+                    {
+                        PlayerAnimator.SetBool("IsChanneling", true);
+                        PlayerAnimator.SetInteger("AnimID", ActionID);
+                        _isPowerAnimPlaying = true;
+                    }
+                    if (TrainingAction.Trim() == "Jump" && _mouseInput != null)
+                    {
+                        _mouseInput.jump = true;
+                    }
                 }
-
                 else if (currentPower < 0.3f && _isPowerAnimPlaying)
                 {
 

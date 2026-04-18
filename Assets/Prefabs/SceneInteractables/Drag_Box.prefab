@@ -10958,6 +10958,7 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 1, b: 1, a: 1}
   followSpeed: 15
   draggingDrag: 5
+  heightOffset: 0.5
 --- !u!114 &4581056788823004696
 MonoBehaviour:
   m_ObjectHideFlags: 0

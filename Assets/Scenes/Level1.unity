@@ -26932,6 +26932,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_TFG
       objectReference: {fileID: 0}
+    - target: {fileID: 5412772624669227397, guid: 6f134027949dff74dad85ac27bff8626,
+        type: 3}
+      propertyPath: gyroDeadzone
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412772624669227397, guid: 6f134027949dff74dad85ac27bff8626,
+        type: 3}
+      propertyPath: gyroSensitivity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5412772625832214691, guid: 6f134027949dff74dad85ac27bff8626,
         type: 3}
       propertyPath: m_Camera

@@ -17,6 +17,8 @@ public class PlayerBCIController : MonoBehaviour
     {
 
         if (radar == null || inputHandler == null || playerInputs == null) return;
+        if(MentalGymTrainer.Instance != null && MentalGymTrainer.Instance._isTraining) 
+            return; 
 
         string action = inputHandler.CurrentAction;
         float power = inputHandler.CurrentPower;

@@ -2,3 +2,6 @@ ParticipantID,ControlMode,TotalTime(s),IdleTime(s),Falls,PushCount,JumpCount,Uns
 Elijah_platformer,Full_BCI,133,32,32,18,3,9,29,30,24,11,5,34,13/04/2026 18:26
 Elijah_platformer,Full_BCI,107,69,17,15,4,6,24,24,19,9,5,6,13/04/2026 19:10
 Elijah_platformer,Full_BCI,106,96,18,33,5,7,26,28,18,5,91,13/04/2026 20:56
+Elijah_platformer,Teclado,108,36,27,82,1,7,18,18,29,34,9,72,18/04/2026 20:39
+Elijah_platformer,Teclado,88,02,18,78,2,4,23,23,17,22,4,86,18/04/2026 20:44
+Elijah_platformer,Teclado,69,5,7,21,1,4,20,20,14,15,3,68,18/04/2026 20:48

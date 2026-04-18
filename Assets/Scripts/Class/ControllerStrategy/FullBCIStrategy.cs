@@ -23,13 +23,13 @@ public class FullBCIStrategy : IControlStrategy
 
         if (EmotivUnityItf.Instance.GetNumberMotionSamples() > 0)
         {
-            double[] accXData = EmotivUnityItf.Instance.GetMotionData(Channel_t.CHAN_ACCX);
             double[] accZData = EmotivUnityItf.Instance.GetMotionData(Channel_t.CHAN_ACCZ);
+            double[] accYData = EmotivUnityItf.Instance.GetMotionData(Channel_t.CHAN_ACCY);
 
-            if (accXData != null && accXData.Length > 0 && accZData != null && accZData.Length > 0)
+            if (accZData != null && accZData.Length > 0 && accYData != null && accYData.Length > 0)
             {
-                float rawPitch = (float)accZData[accZData.Length - 1];
-                float rawRoll = (float)accXData[accXData.Length - 1];
+                float rawPitch = (float)accYData[accYData.Length - 1];
+                float rawRoll = (float)accZData[accZData.Length - 1];
 
                 if (!_isCalibrated || Input.GetKeyDown(KeyCode.C))
                 {
@@ -42,7 +42,7 @@ public class FullBCIStrategy : IControlStrategy
                 float headRoll = rawRoll - _rollOffset;
 
                 Vector2 newJoystick = Vector2.zero;
-                if (Mathf.Abs(headPitch) > context.gyroDeadzone) newJoystick.y = Mathf.Clamp(headPitch * context.gyroSensitivity, -1f, 1f);
+                if (Mathf.Abs(headPitch) > context.gyroDeadzone) newJoystick.y = Mathf.Clamp(-headPitch * context.gyroSensitivity, -1f, 1f);
                 if (Mathf.Abs(headRoll) > context.gyroDeadzone) newJoystick.x = Mathf.Clamp(headRoll * context.gyroSensitivity, -1f, 1f);
 
                 _lastHeadJoystick = newJoystick;
