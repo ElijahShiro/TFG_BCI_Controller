@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 5412772625832214691}
   - component: {fileID: 5412772626094322953}
   - component: {fileID: 1074103506}
+  - component: {fileID: 5412772624669227397}
+  - component: {fileID: 5412772624669227396}
   m_Layer: 9
   m_Name: Character_TFG
   m_TagString: Player
@@ -207,19 +209,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640d880155524464285fb6aa860f9d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 5412772625832214692}
-  playerInputs: {fileID: 5412772626094322953}
   detectionRadius: 3
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8192
   originTransform: {fileID: 5412772625357537874}
-  grabPoint: {fileID: 880515053}
+--- !u!114 &5412772624669227397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178965674839326198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9112e3917005b242bf8b66006c1cfff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gyroDeadzone: 0.15
+  gyroSensitivity: 2.5
+--- !u!114 &5412772624669227396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178965674839326198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f7b74eff0d8ce4fb1f3ee977d44f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radar: {fileID: 1074103506}
+  inputHandler: {fileID: 5412772624669227397}
+  playerInputs: {fileID: 5412772626094322953}
+  playerController: {fileID: 5412772625832214692}
   playerAnimator: {fileID: 5412772625832214693}
-  currentConcentration: 0
-  grabThreshold: 0.7
-  dropThreshold: 0.4
-  currentTarget: {fileID: 0}
 --- !u!1 &5412772625357537875
 GameObject:
   m_ObjectHideFlags: 0
