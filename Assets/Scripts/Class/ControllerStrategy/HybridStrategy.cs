@@ -7,8 +7,12 @@ public class HybridStrategy : IControlStrategy
         if (EmotivUnityItf.Instance != null && EmotivUnityItf.Instance.IsProfileLoaded && EmotivUnityItf.Instance.LatestMentalCommand != null)
         {
             state.Action = EmotivUnityItf.Instance.LatestMentalCommand.act.ToLower();
+            if (state.Action == "lift")
+            {
+                state.Action = "jump";
+            }
             state.Power = (float)EmotivUnityItf.Instance.LatestMentalCommand.pow;
-            if (state.Action == "jump" && state.Power >= 0.5f) state.IsJumpTriggered = true;
+            if (state.Action == "jump" && state.Power >= context.mentalPowerThreshhold) state.IsJumpTriggered = true;
         }
     }
 }

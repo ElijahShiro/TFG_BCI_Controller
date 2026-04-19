@@ -105,7 +105,7 @@ public class TrainingStation : MonoBehaviour
             if (PlayerAnimator != null)
             {
 
-                if (currentPower >= 0.5f )
+                if (currentPower >= 0.35f )
                 {
                     if (!_isPowerAnimPlaying)
                     {
@@ -118,7 +118,7 @@ public class TrainingStation : MonoBehaviour
                         _mouseInput.jump = true;
                     }
                 }
-                else if (currentPower < 0.3f && _isPowerAnimPlaying)
+                else if (currentPower < 0.20f && _isPowerAnimPlaying)
                 {
 
                     PlayerAnimator.SetBool("IsChanneling", false);

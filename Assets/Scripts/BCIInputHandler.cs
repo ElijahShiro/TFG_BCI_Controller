@@ -9,11 +9,15 @@ public class BCIInputHandler : MonoBehaviour
     public float gyroSensitivity = 2.5f;
 
 
-    public string CurrentAction => _state.Action;
-    public float CurrentPower => _state.Power;
-    public Vector2 HeadMove => _state.HeadMove;
-    public bool IsJumpTriggered => _state.IsJumpTriggered;
-    public bool IsUsingHeadMovement => _state.IsUsingHeadMovement;
+[Header("Monitor BCI en Vivo (Solo lectura)")]
+    public string CurrentAction;
+    public float CurrentPower;
+    public Vector2 HeadMove;
+    public bool IsJumpTriggered;
+    public bool IsUsingHeadMovement;
+    
+ [Header ("Config MentalPow")]
+ public float mentalPowerThreshhold = 0.3f;
 
     private InputState _state = new InputState();
     private Dictionary<GameModeManager.ControlMode, IControlStrategy> _strategies;
@@ -52,7 +56,13 @@ public class BCIInputHandler : MonoBehaviour
             _strategies[mode].ReadInput(_state, this);
         }
 
-        bool isMentalCommandActive = _state.Power >= 0.5f && (_state.Action == "push" || _state.Action == "pull" || _state.Action == "jump");
+        CurrentAction = _state.Action;
+        CurrentPower = _state.Power;
+        HeadMove = _state.HeadMove;
+        IsJumpTriggered = _state.IsJumpTriggered;
+        IsUsingHeadMovement = _state.IsUsingHeadMovement;
+
+        bool isMentalCommandActive = _state.Power >= mentalPowerThreshhold && (_state.Action == "push" || _state.Action == "pull" || _state.Action == "jump");
 
         if (isMentalCommandActive && !_wasMentalCommandActiveLastFrame)
         {
