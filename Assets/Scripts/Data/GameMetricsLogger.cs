@@ -1,26 +1,27 @@
 using UnityEngine;
 using System.IO;
 using System;
+using System.Globalization;
 
 public class GameMetricsLogger : MonoBehaviour
 {
     public static GameMetricsLogger Instance { get; private set; }
 
-    [Header("Configuración del Test")]
+    [Header("Configuracion del Test")]
     public string participantID = "User_01";
     public string currentControlMode = "Full_BCI";
 
-    [Header("Métricas de Tiempo y Errores")]
+    [Header("Metricas de Tiempo y Errores")]
     public float totalTimeElapsed = 0f;
     public float totalIdleTime = 0f; 
     public int totalFalls = 0;
 
-    [Header("Métricas de Comandos (Independientes)")]
+    [Header("Metricas de Comandos (Independientes)")]
     public int pushActivations = 0;
     public int jumpActivations = 0;
     public int unstableActivations = 0; 
 
-    [Header("Métricas de Concentración")]
+    [Header("Metricas de Concentracion")]
     public float totalTimeConcentrated = 0f;
     public float maxContinuousConcentration = 0f; 
 
@@ -183,8 +184,16 @@ public class GameMetricsLogger : MonoBehaviour
             }
 
 
-            string dataRow = $"{participantID},{currentControlMode},{Math.Round(totalTimeElapsed, 2)},{Math.Round(totalIdleTime, 2)},{totalFalls},{pushActivations},{jumpActivations},{unstableActivations},{Math.Round(totalTimeConcentrated, 2)},{Math.Round(maxContinuousConcentration, 2)},{DateTime.Now.ToString("dd/MM/yyyy HH:mm")}";
-            writer.WriteLine(dataRow);
+            string dataRow = $"{participantID},{currentControlMode}," +
+                                         $"{totalTimeElapsed.ToString("F2", CultureInfo.InvariantCulture)}," +
+                                         $"{totalIdleTime.ToString("F2", CultureInfo.InvariantCulture)}," +
+                                         $"{totalFalls}," +
+                                         $"{pushActivations}," +
+                                         $"{jumpActivations}," +
+                                         $"{unstableActivations}," +
+                                         $"{totalTimeConcentrated.ToString("F2", CultureInfo.InvariantCulture)}," +
+                                         $"{maxContinuousConcentration.ToString("F2", CultureInfo.InvariantCulture)}," +
+                                         $"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")}"; writer.WriteLine(dataRow);
         }
 
         Debug.Log("Telemetría: Excel generado con métricas avanzadas.");

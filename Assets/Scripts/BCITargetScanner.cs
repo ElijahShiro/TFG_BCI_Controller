@@ -34,9 +34,14 @@ public class BCITargetScanner : MonoBehaviour
             BCIInteractable interactable = col.GetComponent<BCIInteractable>();
             if (interactable == null) continue;
 
-            Vector3 directionToTarget = (col.transform.position - originTransform.position).normalized;
-            float distanceToTarget = Vector3.Distance(originTransform.position, col.transform.position);
-            float lookAtScore = Vector3.Dot(originTransform.forward, directionToTarget);
+            Vector3 flatOrigin = new Vector3(originTransform.position.x, 0, originTransform.position.z);
+            Vector3 flatTarget = new Vector3(col.transform.position.x, 0, col.transform.position.z);
+            Vector3 flatForward = new Vector3(originTransform.forward.x, 0, originTransform.forward.z).normalized;
+
+            Vector3 flatDirectionToTarget = (flatTarget - flatOrigin).normalized;
+            float distanceToTarget = Vector3.Distance(flatOrigin, flatTarget);
+
+            float lookAtScore = Vector3.Dot(flatForward, flatDirectionToTarget);
 
             if (lookAtScore > 0.4f)
             {

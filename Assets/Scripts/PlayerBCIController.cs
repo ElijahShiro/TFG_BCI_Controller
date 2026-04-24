@@ -46,25 +46,31 @@ public class PlayerBCIController : MonoBehaviour
 
         if (target != null)
         {
+            bool isStandingOnTarget = transform.position.y > (target.transform.position.y + 0.2f);
 
-            target.ReceiveMentalData(action, power);
-
-
-            if (power >= 0.5f && (action == "push" || action == "pull"))
+            if (isStandingOnTarget)
+            { }
+            else
             {
-                isChanneling = true;
+                target.ReceiveMentalData(action, power);
 
 
-                if (playerController != null) playerController.lockRotation = true;
-
-
-                if (action == "push")
+                if (power >= 0.5f && (action == "push" || action == "pull"))
                 {
-                    playerInputs.move = new Vector2(playerInputs.move.x, Mathf.Clamp(playerInputs.move.y, 0f, 1f));
-                }
-                else if (action == "pull")
-                {
-                    playerInputs.move = new Vector2(playerInputs.move.x, Mathf.Clamp(playerInputs.move.y, -1f, 0f));
+                    isChanneling = true;
+
+
+                    if (playerController != null) playerController.lockRotation = true;
+
+
+                    if (action == "push")
+                    {
+                        playerInputs.move = new Vector2(playerInputs.move.x, Mathf.Clamp(playerInputs.move.y, 0f, 1f));
+                    }
+                    else if (action == "pull")
+                    {
+                        playerInputs.move = new Vector2(playerInputs.move.x, Mathf.Clamp(playerInputs.move.y, -1f, 0f));
+                    }
                 }
             }
         }

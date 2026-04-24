@@ -36,6 +36,11 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
+			if(GameModeManager.Instance != null) 
+			{
+				if (GameModeManager.Instance.currentMode != GameModeManager.ControlMode.Teclado)
+					return;
+			}
 			JumpInput(value.isPressed);
 		}
 
