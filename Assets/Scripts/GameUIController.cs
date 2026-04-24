@@ -115,7 +115,7 @@ public class GameUIController : MonoBehaviour
         {
             string sessionText = sessions > 0 ? $"\n<size=14>(Sesiones completadas: {sessions})</size>" : "";
             InteractText.text = message + sessionText;
-            InteractText.color = isLocked? Color.red : Color.white;
+            InteractText.color = isLocked? Color.red : Color.black;
         }
     }
     public void OpenPreTrainingMenu(TrainingStation station) 
