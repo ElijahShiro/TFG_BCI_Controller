@@ -1,7 +1,9 @@
-using UnityEngine;
-using System.IO;
+using StarterAssets;
 using System;
 using System.Globalization;
+using System.IO;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMetricsLogger : MonoBehaviour
 {
@@ -31,6 +33,9 @@ public class GameMetricsLogger : MonoBehaviour
     private bool isCurrentlyConcentrating = false;
     private Transform playerTransform;
     private Vector3 lastPlayerPosition;
+
+
+    public string menuSceneName = "Gym_platformer";
 
     private void Awake()
     {
@@ -114,8 +119,24 @@ public class GameMetricsLogger : MonoBehaviour
             }
             Debug.Log("El jugador ha forzado el reseteo del puzle.");
         }
-    }
 
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            //StarterAssets.ThirdPersonController controller = FindAnyObjectByType<ThirdPersonController>.GetComponent<StarterAssets.ThirdPersonController>();
+            //if (controller != null) controller.enabled = false;
+
+            //StarterAssets.StarterAssetsInputs inputs = other.GetComponent<StarterAssets.StarterAssetsInputs>();
+            //if (inputs != null)
+            //{
+            //    inputs.move = Vector2.zero;
+            //    inputs.jump = false;
+            //}
+
+            SceneManager.LoadScene(menuSceneName);
+        }
+
+
+    }
 
 
     public void LogFall()

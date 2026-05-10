@@ -46,7 +46,7 @@ public class PlayerBCIController : MonoBehaviour
 
         if (target != null)
         {
-            bool isStandingOnTarget = transform.position.y > (target.transform.position.y + 0.2f);
+            bool isStandingOnTarget = transform.position.y > (target.transform.position.y + 0.6f);
 
             if (isStandingOnTarget)
             { }
