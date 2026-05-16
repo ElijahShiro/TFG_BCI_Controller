@@ -1,0 +1,2 @@
+ParticipantID,ControlMode,TotalTime(s),IdleTime(s),Falls,PushCount,JumpCount,UnstableFlickers,TotalConcentration(s),MaxContinuousTime(s),Date
+adam_platformer,Teclado,117.00,23.63,4,21,42,41,32.83,2.03,16/05/2026 16:24

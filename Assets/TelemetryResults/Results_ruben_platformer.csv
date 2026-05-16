@@ -1,0 +1,3 @@
+ParticipantID,ControlMode,TotalTime(s),IdleTime(s),Falls,PushCount,JumpCount,UnstableFlickers,TotalConcentration(s),MaxContinuousTime(s),Date
+ruben_platformer,Hibrido,1074.65,894.79,26,23,113,73,91.29,4.74,16/05/2026 17:18
+ruben_platformer,Teclado,84.29,10.14,2,10,27,30,15.40,2.49,16/05/2026 17:20
