@@ -1,0 +1,4 @@
+ParticipantID,ControlMode,TotalTime(s),IdleTime(s),Falls,PushCount,JumpCount,UnstableFlickers,TotalConcentration(s),MaxContinuousTime(s),Date
+Eidan_platformer,Hibrido,476.57,232.14,10,37,124,64,165.22,6.75,22/05/2026 17:08
+Eidan_platformer,Teclado,44.35,1.80,0,5,28,28,14.06,4.35,22/05/2026 17:10
+Eidan_platformer,Full_BCI,756.81,271.72,32,79,177,87,264.92,5.36,22/05/2026 17:23
